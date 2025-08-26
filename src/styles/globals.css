@@ -141,9 +141,10 @@
   }
 
   /* Product card hover effects */
-  .product-card {
-    @apply group cursor-pointer transition-all duration-300;
-  }
+.product-card {
+  @apply cursor-pointer transition-all duration-300;
+}
+
 
   .product-card:hover {
     @apply shadow-xl transform -translate-y-1;
