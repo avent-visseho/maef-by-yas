@@ -1,12 +1,73 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+maef-by-yas/
+├── public/
+│   ├── images/
+│   │   ├── products/
+│   │   ├── hero/
+│   │   ├── banners/
+│   │   └── logos/
+│   └── favicon.ico
+├── src/
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Loading.jsx
+│   │   │   ├── Modal.jsx
+│   │   │   └── ScrollToTop.jsx
+│   │   ├── home/
+│   │   │   ├── Hero.jsx
+│   │   │   ├── FeaturedProducts.jsx
+│   │   │   ├── Categories.jsx
+│   │   │   └── Newsletter.jsx
+│   │   ├── shop/
+│   │   │   ├── ProductCard.jsx
+│   │   │   ├── ProductFilter.jsx
+│   │   │   ├── ProductGrid.jsx
+│   │   │   └── Pagination.jsx
+│   │   ├── product/
+│   │   │   ├── ProductGallery.jsx
+│   │   │   ├── ProductInfo.jsx
+│   │   │   ├── ProductTabs.jsx
+│   │   │   ├── RelatedProducts.jsx
+│   │   │   └── SocialShare.jsx
+│   │   ├── cart/
+│   │   │   ├── CartItem.jsx
+│   │   │   ├── CartSummary.jsx
+│   │   │   └── CartDrawer.jsx
+│   │   └── forms/
+│   │       ├── LoginForm.jsx
+│   │       ├── RegisterForm.jsx
+│   │       └── ContactForm.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── About.jsx
+│   │   ├── Shop.jsx
+│   │   ├── ProductDetail.jsx
+│   │   ├── Cart.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Login.jsx
+│   │   └── Register.jsx
+│   ├── hooks/
+│   │   ├── useCart.jsx
+│   │   ├── useProducts.jsx
+│   │   └── useLocalStorage.jsx
+│   ├── context/
+│   │   ├── CartContext.jsx
+│   │   └── AuthContext.jsx
+│   ├── data/
+│   │   ├── products.js
+│   │   └── categories.js
+│   ├── utils/
+│   │   ├── helpers.js
+│   │   └── constants.js
+│   ├── styles/
+│   │   └── globals.css
+│   ├── App.jsx
+│   └── main.jsx
+├── tailwind.config.js
+├── postcss.config.js
+├── vite.config.js
+└── package.json
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
