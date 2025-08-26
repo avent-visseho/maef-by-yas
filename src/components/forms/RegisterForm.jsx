@@ -15,7 +15,16 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Eye, EyeOff, Mail, Lock, User, UserPlus, AlertCircle, CheckCircle } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  User,
+  UserPlus,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
 import { useAuth } from "@context/AuthContext";
 import { isValidEmail, isValidPassword } from "@utils/helpers";
 import { USER_CONFIG } from "@utils/constants";
@@ -143,7 +152,7 @@ const RegisterForm = ({
     if (/[A-Z]/.test(password)) score += 1;
     else feedback.push("une majuscule");
 
-    // Minuscule  
+    // Minuscule
     if (/[a-z]/.test(password)) score += 1;
     else feedback.push("une minuscule");
 
@@ -166,7 +175,8 @@ const RegisterForm = ({
     return {
       score,
       ...strength[score],
-      feedback: feedback.length > 0 ? `Manque: ${feedback.join(", ")}` : "Excellent!",
+      feedback:
+        feedback.length > 0 ? `Manque: ${feedback.join(", ")}` : "Excellent!",
     };
   };
 
@@ -219,13 +229,21 @@ const RegisterForm = ({
   const passwordStrength = getPasswordStrength(formData.password);
 
   return (
-    <div className={`bg-white rounded-lg shadow-soft ${compact ? "p-6" : "p-8"} ${className}`}>
+    <div
+      className={`bg-white rounded-lg shadow-soft ${
+        compact ? "p-6" : "p-8"
+      } ${className}`}
+    >
       {/* En-tête */}
       <div className="text-center mb-8">
         <div className="mx-auto w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-4">
           <UserPlus className="w-8 h-8 text-primary-600" />
         </div>
-        <h2 className={`font-bold text-secondary-900 ${compact ? "text-xl" : "text-2xl"}`}>
+        <h2
+          className={`font-bold text-secondary-900 ${
+            compact ? "text-xl" : "text-2xl"
+          }`}
+        >
           Créer un compte
         </h2>
         <p className="text-secondary-600 mt-2">
@@ -250,7 +268,10 @@ const RegisterForm = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Prénom */}
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-secondary-700 mb-2">
+            <label
+              htmlFor="firstName"
+              className="block text-sm font-medium text-secondary-700 mb-2"
+            >
               Prénom
             </label>
             <div className="relative">
@@ -283,7 +304,10 @@ const RegisterForm = ({
 
           {/* Nom */}
           <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-secondary-700 mb-2">
+            <label
+              htmlFor="lastName"
+              className="block text-sm font-medium text-secondary-700 mb-2"
+            >
               Nom
             </label>
             <input
@@ -312,7 +336,327 @@ const RegisterForm = ({
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-secondary-700 mb-2"
+          >
             Adresse email
           </label>
-          <div className
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Mail className="h-5 w-5 text-secondary-400" />
+            </div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors ${
+                formErrors.email
+                  ? "border-red-300 focus:border-red-500"
+                  : "border-secondary-300 focus:border-primary-500"
+              }`}
+              placeholder="votre@email.com"
+              disabled={isLoading}
+              autoComplete="email"
+              required
+            />
+          </div>
+          {formErrors.email && (
+            <p className="mt-2 text-sm text-red-600 flex items-center">
+              <AlertCircle className="w-4 h-4 mr-1" />
+              {formErrors.email}
+            </p>
+          )}
+        </div>
+
+        {/* Mot de passe */}
+        <div>
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-secondary-700 mb-2"
+          >
+            Mot de passe
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Lock className="h-5 w-5 text-secondary-400" />
+            </div>
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors ${
+                formErrors.password
+                  ? "border-red-300 focus:border-red-500"
+                  : "border-secondary-300 focus:border-primary-500"
+              }`}
+              placeholder="••••••••"
+              disabled={isLoading}
+              autoComplete="new-password"
+              required
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary-400 hover:text-secondary-600"
+              disabled={isLoading}
+              aria-label={
+                showPassword
+                  ? "Masquer le mot de passe"
+                  : "Afficher le mot de passe"
+              }
+            >
+              {showPassword ? (
+                <EyeOff className="h-5 w-5" />
+              ) : (
+                <Eye className="h-5 w-5" />
+              )}
+            </button>
+          </div>
+
+          {/* Indicateur de force du mot de passe */}
+          {formData.password && (
+            <div className="mt-2">
+              <div className="flex items-center space-x-2">
+                <div className="flex-1 h-2 bg-secondary-200 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-300 ${
+                      passwordStrength.score <= 2
+                        ? "bg-red-500"
+                        : passwordStrength.score <= 3
+                        ? "bg-orange-500"
+                        : "bg-green-500"
+                    }`}
+                    style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
+                  />
+                </div>
+                <span
+                  className={`text-sm font-medium ${passwordStrength.color}`}
+                >
+                  {passwordStrength.text}
+                </span>
+              </div>
+              {passwordStrength.feedback && (
+                <p className="text-xs text-secondary-600 mt-1">
+                  {passwordStrength.feedback}
+                </p>
+              )}
+            </div>
+          )}
+
+          {formErrors.password && (
+            <p className="mt-2 text-sm text-red-600 flex items-center">
+              <AlertCircle className="w-4 h-4 mr-1" />
+              {formErrors.password}
+            </p>
+          )}
+        </div>
+
+        {/* Confirmation mot de passe */}
+        <div>
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-secondary-700 mb-2"
+          >
+            Confirmer le mot de passe
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Lock className="h-5 w-5 text-secondary-400" />
+            </div>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors ${
+                formErrors.confirmPassword
+                  ? "border-red-300 focus:border-red-500"
+                  : "border-secondary-300 focus:border-primary-500"
+              }`}
+              placeholder="••••••••"
+              disabled={isLoading}
+              autoComplete="new-password"
+              required
+            />
+            <button
+              type="button"
+              onClick={toggleConfirmPasswordVisibility}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary-400 hover:text-secondary-600"
+              disabled={isLoading}
+              aria-label={
+                showConfirmPassword
+                  ? "Masquer le mot de passe"
+                  : "Afficher le mot de passe"
+              }
+            >
+              {showConfirmPassword ? (
+                <EyeOff className="h-5 w-5" />
+              ) : (
+                <Eye className="h-5 w-5" />
+              )}
+            </button>
+          </div>
+
+          {/* Indication de correspondance des mots de passe */}
+          {formData.confirmPassword && (
+            <div className="mt-2">
+              {formData.password === formData.confirmPassword ? (
+                <p className="text-sm text-green-600 flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-1" />
+                  Les mots de passe correspondent
+                </p>
+              ) : (
+                <p className="text-sm text-red-600 flex items-center">
+                  <AlertCircle className="w-4 h-4 mr-1" />
+                  Les mots de passe ne correspondent pas
+                </p>
+              )}
+            </div>
+          )}
+
+          {formErrors.confirmPassword && (
+            <p className="mt-2 text-sm text-red-600 flex items-center">
+              <AlertCircle className="w-4 h-4 mr-1" />
+              {formErrors.confirmPassword}
+            </p>
+          )}
+        </div>
+
+        {/* Cases à cocher */}
+        <div className="space-y-4">
+          {/* Acceptation des conditions */}
+          <div className="flex items-start space-x-3">
+            <input
+              id="acceptTerms"
+              type="checkbox"
+              checked={acceptTerms}
+              onChange={(e) => setAcceptTerms(e.target.checked)}
+              className="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded"
+              disabled={isLoading}
+              required
+            />
+            <label htmlFor="acceptTerms" className="text-sm text-secondary-700">
+              J'accepte les{" "}
+              <Link
+                to="/terms"
+                className="text-primary-600 hover:text-primary-500 underline"
+              >
+                conditions d'utilisation
+              </Link>{" "}
+              et la{" "}
+              <Link
+                to="/privacy"
+                className="text-primary-600 hover:text-primary-500 underline"
+              >
+                politique de confidentialité
+              </Link>
+            </label>
+          </div>
+          {formErrors.terms && (
+            <p className="text-sm text-red-600 flex items-center">
+              <AlertCircle className="w-4 h-4 mr-1" />
+              {formErrors.terms}
+            </p>
+          )}
+
+          {/* Newsletter optionnelle */}
+          <div className="flex items-start space-x-3">
+            <input
+              id="acceptNewsletter"
+              type="checkbox"
+              checked={acceptNewsletter}
+              onChange={(e) => setAcceptNewsletter(e.target.checked)}
+              className="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded"
+              disabled={isLoading}
+            />
+            <label
+              htmlFor="acceptNewsletter"
+              className="text-sm text-secondary-700"
+            >
+              Je souhaite recevoir les newsletters et offres promotionnelles
+              (optionnel)
+            </label>
+          </div>
+        </div>
+
+        {/* Bouton d'inscription */}
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+        >
+          {isLoading ? (
+            <>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3" />
+              Création en cours...
+            </>
+          ) : (
+            <>
+              <UserPlus className="w-5 h-5 mr-2" />
+              Créer mon compte
+            </>
+          )}
+        </button>
+      </form>
+
+      {/* Séparateur */}
+      <div className="mt-8">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-secondary-300" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-secondary-500">Ou</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Liens vers connexion */}
+      <div className="mt-6 text-center">
+        <p className="text-sm text-secondary-600">
+          Vous avez déjà un compte ?{" "}
+          <Link
+            to="/login"
+            state={{ from: location.state?.from }}
+            className="font-medium text-primary-600 hover:text-primary-500 transition-colors"
+          >
+            Se connecter
+          </Link>
+        </p>
+      </div>
+
+      {/* Note de sécurité */}
+      {!compact && (
+        <div className="mt-8 p-4 bg-secondary-50 rounded-lg">
+          <div className="flex items-start space-x-3">
+            <Lock className="w-5 h-5 text-secondary-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-secondary-900">
+                Données sécurisées
+              </p>
+              <p className="text-sm text-secondary-600 mt-1">
+                Vos informations personnelles sont protégées par un chiffrement
+                SSL et ne sont jamais partagées avec des tiers.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+RegisterForm.propTypes = {
+  onSuccess: PropTypes.func,
+  redirectTo: PropTypes.string,
+  className: PropTypes.string,
+  compact: PropTypes.bool,
+};
+
+export default RegisterForm;
