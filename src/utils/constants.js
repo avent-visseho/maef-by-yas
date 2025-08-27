@@ -483,7 +483,7 @@ export const PERFORMANCE_CONFIG = {
 
 // URLs d'API (pour usage futur avec backend)
 export const API_ENDPOINTS = {
-  BASE_URL: process.env.REACT_APP_API_URL || 'http://localhost:3001/api',
+  /* BASE_URL: process.env.REACT_APP_API_URL || 'http://localhost:3001/api', */
   PRODUCTS: '/products',
   CATEGORIES: '/categories',
   USERS: '/users',

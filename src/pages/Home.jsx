@@ -33,7 +33,13 @@ import {
   TrendingUp,
   Zap,
   Plus,
-  Minus
+  Minus,
+  Check,
+  Mail,
+  Award,
+  Clock,
+  MapPin,
+  Quote
 } from 'lucide-react';
 
 // Mock data basé sur vos données existantes
@@ -195,6 +201,33 @@ const heroSlides = [
     image: '/images/hero/hero-3.jpg',
     ctaText: 'Explorer les Sacs',
     theme: 'dark'
+  }
+];
+
+const testimonials = [
+  {
+    id: 1,
+    name: 'Amina K.',
+    location: 'Paris',
+    rating: 5,
+    text: 'Des produits d\'une qualité exceptionnelle ! J\'ai commandé plusieurs pagnes et ils sont magnifiques. Livraison rapide et emballage soigné.',
+    avatar: '👩🏾'
+  },
+  {
+    id: 2,
+    name: 'Marie L.',
+    location: 'Lyon',
+    rating: 5,
+    text: 'Je suis conquise par les bijoux artisanaux. Chaque pièce est unique et raconte une histoire. Service client au top !',
+    avatar: '👩🏼'
+  },
+  {
+    id: 3,
+    name: 'Fatou D.',
+    location: 'Marseille',
+    rating: 5,
+    text: 'Mes sacs préférés viennent de chez Maef By Yas. La qualité du cuir et les finitions sont irréprochables.',
+    avatar: '👩🏿'
   }
 ];
 
@@ -435,7 +468,6 @@ const ProductCard = ({ product, onToggleFavorite, isFavorite = false }) => {
     
     setIsAddingToCart(true);
     try {
-      // Simulation d'un délai d'ajout
       await new Promise(resolve => setTimeout(resolve, 500));
       addToCart(product, 1);
     } catch (error) {
@@ -604,7 +636,6 @@ const Categories = ({ onCategoryClick }) => {
           onMouseLeave={() => setHoveredCategory(null)}
           className="group relative overflow-hidden rounded-xl cursor-pointer transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 aspect-[4/3]"
         >
-          {/* Background simulé */}
           <div className={`absolute inset-0 bg-gradient-to-br opacity-60 group-hover:opacity-80 transition-opacity`}
             style={{ backgroundColor: category.color }} />
           
@@ -637,7 +668,6 @@ const Categories = ({ onCategoryClick }) => {
             </div>
           </div>
 
-          {/* Effet de brillance au hover */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transition-all duration-700 transform translate-x-[-100%] group-hover:translate-x-[100%]"
             style={{ transform: 'skewX(-25deg)' }} />
         </div>
@@ -649,6 +679,7 @@ const Categories = ({ onCategoryClick }) => {
 // Composant FeaturedProducts
 const FeaturedProducts = ({ title, products = [], onProductClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [favorites, setFavorites] = useState([]);
   const itemsPerView = 4;
   const maxSlide = Math.ceil(products.length / itemsPerView) - 1;
 
@@ -658,6 +689,14 @@ const FeaturedProducts = ({ title, products = [], onProductClick }) => {
     } else {
       setCurrentSlide(prev => prev <= 0 ? maxSlide : prev - 1);
     }
+  };
+
+  const toggleFavorite = (productId) => {
+    setFavorites(prev => 
+      prev.includes(productId) 
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId]
+    );
   };
 
   const visibleProducts = products.slice(
@@ -682,25 +721,4 @@ const FeaturedProducts = ({ title, products = [], onProductClick }) => {
             <>
               <button
                 onClick={() => goToSlide('prev')}
-                className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white shadow-lg rounded-full hover:bg-pink-50 hover:text-pink-600 transition-colors group"
-                aria-label="Produits précédents"
-              >
-                <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
-              </button>
-
-              <button
-                onClick={() => goToSlide('next')}
-                className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white shadow-lg rounded-full hover:bg-pink-50 hover:text-pink-600 transition-colors group"
-                aria-label="Produits suivants"
-              >
-                <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </button>
-            </>
-          )}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {visibleProducts.map((product, index) => (
-              <div
-                key={product.id}
-                className="opacity-0 animate-fade-in"
-                style={{
+                className="absolute -left-4 top-1/2 -translate-y-

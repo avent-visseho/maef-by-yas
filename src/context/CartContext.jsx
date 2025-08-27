@@ -1,25 +1,26 @@
 /**
  * CartContext.jsx - Contexte global pour la gestion du panier
- * 
+ *
  * Ce contexte fournit les fonctionnalités de gestion du panier d'achat :
  * - Ajout/suppression de produits
  * - Modification des quantités
  * - Calculs des totaux
  * - Persistance dans le localStorage
- * 
+ *
  * @author Votre équipe de développement
  * @version 1.0.0
  */
 
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 
 // Actions pour le reducer du panier
 const CART_ACTIONS = {
-  ADD_ITEM: 'ADD_ITEM',
-  REMOVE_ITEM: 'REMOVE_ITEM',
-  UPDATE_QUANTITY: 'UPDATE_QUANTITY',
-  CLEAR_CART: 'CLEAR_CART',
-  LOAD_CART: 'LOAD_CART'
+  ADD_ITEM: "ADD_ITEM",
+  REMOVE_ITEM: "REMOVE_ITEM",
+  UPDATE_QUANTITY: "UPDATE_QUANTITY",
+  CLEAR_CART: "CLEAR_CART",
+  LOAD_CART: "LOAD_CART",
+  TOGGLE_CART: "TOGGLE_CART",
 };
 
 // État initial du panier
@@ -27,7 +28,7 @@ const initialCartState = {
   items: [],
   totalItems: 0,
   totalAmount: 0,
-  isOpen: false
+  isOpen: false,
 };
 
 /**
@@ -39,16 +40,23 @@ const initialCartState = {
 const cartReducer = (state, action) => {
   switch (action.type) {
     case CART_ACTIONS.ADD_ITEM: {
-      const { product, quantity = 1, selectedSize, selectedColor } = action.payload;
-      
+      const {
+        product,
+        quantity = 1,
+        selectedSize,
+        selectedColor,
+      } = action.payload;
+
       // Créer un identifiant unique pour les variantes du produit
       const itemId = `${product.id}-${selectedSize}-${selectedColor}`;
-      
+
       // Vérifier si l'item existe déjà dans le panier
-      const existingItemIndex = state.items.findIndex(item => item.id === itemId);
-      
+      const existingItemIndex = state.items.findIndex(
+        (item) => item.id === itemId
+      );
+
       let updatedItems;
-      
+
       if (existingItemIndex >= 0) {
         // Mettre à jour la quantité si l'item existe
         updatedItems = state.items.map((item, index) =>
@@ -67,69 +75,107 @@ const cartReducer = (state, action) => {
           quantity,
           selectedSize,
           selectedColor,
-          category: product.category
+          category: product.category,
         };
         updatedItems = [...state.items, newItem];
       }
-      
+
       return {
         ...state,
         items: updatedItems,
-        totalItems: updatedItems.reduce((total, item) => total + item.quantity, 0),
-        totalAmount: updatedItems.reduce((total, item) => total + (item.price * item.quantity), 0)
+        totalItems: updatedItems.reduce(
+          (total, item) => total + item.quantity,
+          0
+        ),
+        totalAmount: updatedItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        ),
       };
     }
-    
+
     case CART_ACTIONS.REMOVE_ITEM: {
-      const updatedItems = state.items.filter(item => item.id !== action.payload.itemId);
-      
+      const updatedItems = state.items.filter(
+        (item) => item.id !== action.payload.itemId
+      );
+
       return {
         ...state,
         items: updatedItems,
-        totalItems: updatedItems.reduce((total, item) => total + item.quantity, 0),
-        totalAmount: updatedItems.reduce((total, item) => total + (item.price * item.quantity), 0)
+        totalItems: updatedItems.reduce(
+          (total, item) => total + item.quantity,
+          0
+        ),
+        totalAmount: updatedItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        ),
       };
     }
-    
+
     case CART_ACTIONS.UPDATE_QUANTITY: {
       const { itemId, quantity } = action.payload;
-      
+
       if (quantity <= 0) {
         // Si la quantité est 0 ou négative, supprimer l'item
-        return cartReducer(state, { type: CART_ACTIONS.REMOVE_ITEM, payload: { itemId } });
+        return cartReducer(state, {
+          type: CART_ACTIONS.REMOVE_ITEM,
+          payload: { itemId },
+        });
       }
-      
-      const updatedItems = state.items.map(item =>
+
+      const updatedItems = state.items.map((item) =>
         item.id === itemId ? { ...item, quantity } : item
       );
-      
+
       return {
         ...state,
         items: updatedItems,
-        totalItems: updatedItems.reduce((total, item) => total + item.quantity, 0),
-        totalAmount: updatedItems.reduce((total, item) => total + (item.price * item.quantity), 0)
+        totalItems: updatedItems.reduce(
+          (total, item) => total + item.quantity,
+          0
+        ),
+        totalAmount: updatedItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        ),
       };
     }
-    
+
     case CART_ACTIONS.CLEAR_CART:
       return initialCartState;
-    
+
     case CART_ACTIONS.LOAD_CART: {
       const loadedCart = action.payload;
       return {
         ...loadedCart,
-        totalItems: loadedCart.items.reduce((total, item) => total + item.quantity, 0),
-        totalAmount: loadedCart.items.reduce((total, item) => total + (item.price * item.quantity), 0)
+        totalItems: loadedCart.items.reduce(
+          (total, item) => total + item.quantity,
+          0
+        ),
+        totalAmount: loadedCart.items.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        ),
       };
     }
-    
+
+    case CART_ACTIONS.TOGGLE_CART:
+      return {
+        ...state,
+        isOpen: action.payload,
+      };
+
     default:
       return state;
   }
 };
 
-// Création du contexte
+// Création du contexte - EXPORT AJOUTÉ ICI
 const CartContext = createContext();
+
+// Export du contexte pour pouvoir l'utiliser dans d'autres fichiers
+export { CartContext };
 
 /**
  * Hook personnalisé pour utiliser le contexte du panier
@@ -138,7 +184,9 @@ const CartContext = createContext();
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart doit être utilisé à l\'intérieur d\'un CartProvider');
+    throw new Error(
+      "useCart doit être utilisé à l'intérieur d'un CartProvider"
+    );
   }
   return context;
 };
@@ -153,13 +201,13 @@ export const CartProvider = ({ children }) => {
 
   // Charger le panier depuis localStorage au démarrage
   useEffect(() => {
-    const savedCart = localStorage.getItem('maef-cart');
+    const savedCart = localStorage.getItem("maef-cart");
     if (savedCart) {
       try {
         const parsedCart = JSON.parse(savedCart);
         dispatch({ type: CART_ACTIONS.LOAD_CART, payload: parsedCart });
       } catch (error) {
-        console.error('Erreur lors du chargement du panier:', error);
+        console.error("Erreur lors du chargement du panier:", error);
       }
     }
   }, []);
@@ -167,7 +215,7 @@ export const CartProvider = ({ children }) => {
   // Sauvegarder le panier dans localStorage à chaque modification
   useEffect(() => {
     if (cartState.items.length > 0 || cartState.totalItems > 0) {
-      localStorage.setItem('maef-cart', JSON.stringify(cartState));
+      localStorage.setItem("maef-cart", JSON.stringify(cartState));
     }
   }, [cartState]);
 
@@ -178,10 +226,15 @@ export const CartProvider = ({ children }) => {
    * @param {string} selectedSize - Taille sélectionnée
    * @param {string} selectedColor - Couleur sélectionnée
    */
-  const addToCart = (product, quantity = 1, selectedSize = '', selectedColor = '') => {
+  const addToCart = (
+    product,
+    quantity = 1,
+    selectedSize = "",
+    selectedColor = ""
+  ) => {
     dispatch({
       type: CART_ACTIONS.ADD_ITEM,
-      payload: { product, quantity, selectedSize, selectedColor }
+      payload: { product, quantity, selectedSize, selectedColor },
     });
   };
 
@@ -192,7 +245,7 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = (itemId) => {
     dispatch({
       type: CART_ACTIONS.REMOVE_ITEM,
-      payload: { itemId }
+      payload: { itemId },
     });
   };
 
@@ -204,7 +257,7 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = (itemId, quantity) => {
     dispatch({
       type: CART_ACTIONS.UPDATE_QUANTITY,
-      payload: { itemId, quantity }
+      payload: { itemId, quantity },
     });
   };
 
@@ -213,7 +266,7 @@ export const CartProvider = ({ children }) => {
    */
   const clearCart = () => {
     dispatch({ type: CART_ACTIONS.CLEAR_CART });
-    localStorage.removeItem('maef-cart');
+    localStorage.removeItem("maef-cart");
   };
 
   /**
@@ -221,40 +274,38 @@ export const CartProvider = ({ children }) => {
    */
   const toggleCart = () => {
     dispatch({
-      type: 'TOGGLE_CART',
-      payload: !cartState.isOpen
+      type: CART_ACTIONS.TOGGLE_CART,
+      payload: !cartState.isOpen,
     });
   };
 
   // Fonctions utilitaires
   const getItemCount = () => cartState.totalItems;
   const getCartTotal = () => cartState.totalAmount;
-  const isInCart = (productId, size = '', color = '') => {
+  const isInCart = (productId, size = "", color = "") => {
     const itemId = `${productId}-${size}-${color}`;
-    return cartState.items.some(item => item.id === itemId);
+    return cartState.items.some((item) => item.id === itemId);
   };
 
   // Valeurs du contexte
   const contextValue = {
     // État du panier
     ...cartState,
-    
+
     // Actions
     addToCart,
     removeFromCart,
     updateQuantity,
     clearCart,
     toggleCart,
-    
+
     // Utilitaires
     getItemCount,
     getCartTotal,
-    isInCart
+    isInCart,
   };
 
   return (
-    <CartContext.Provider value={contextValue}>
-      {children}
-    </CartContext.Provider>
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 };
