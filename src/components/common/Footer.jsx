@@ -140,11 +140,11 @@ const Footer = () => {
             <div className="mb-6">
               <Link to="/" className="inline-block">
                 <img
-                  src="/images/logos/maef-by-yas-logo-white.png"
+                  src="/logos/maef-by-yas-logo.png"
                   alt={APP_CONFIG.NAME}
                   className="h-12 w-auto"
                   onError={(e) => {
-                    e.target.src = "/images/logos/maef-by-yas-logo.png";
+                    e.target.src = "/logos/maef-by-yas-logo.png";
                   }}
                 />
               </Link>
@@ -301,7 +301,7 @@ const Footer = () => {
               <div>
                 <h4 className="font-medium text-white">Livraison gratuite</h4>
                 <p className="text-sm text-secondary-400">
-                  À partir de 100€ d'achat
+                  À partir de 1000FCFA d'achat
                 </p>
               </div>
             </div>

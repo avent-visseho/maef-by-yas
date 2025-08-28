@@ -20,7 +20,7 @@ export const APP_CONFIG = {
   URL: 'https://maef-by-yas.com',
   EMAIL: 'contact@maef-by-yas.com',
   PHONE: '+229 XX XX XX XX',
-  ADDRESS: 'Porto-Novo, Ouémé, Bénin'
+  ADDRESS: 'Cotonou, Littoral, Bénin'
 };
 
 // Réseaux sociaux
@@ -63,11 +63,11 @@ export const PAGINATION_CONFIG = {
 // Configuration des filtres de produits
 export const FILTER_CONFIG = {
   PRICE_RANGES: [
-    { min: 0, max: 50, label: 'Moins de 50€' },
-    { min: 50, max: 100, label: '50€ - 100€' },
-    { min: 100, max: 200, label: '100€ - 200€' },
-    { min: 200, max: 500, label: '200€ - 500€' },
-    { min: 500, max: Infinity, label: 'Plus de 500€' }
+    { min: 0, max: 50, label: 'Moins de 50FCFA' },
+    { min: 50, max: 100, label: '50FCFA - 100FCFA' },
+    { min: 100, max: 200, label: '100FCFA - 200FCFA' },
+    { min: 200, max: 500, label: '200FCFA - 500FCFA' },
+    { min: 500, max: Infinity, label: 'Plus de 500FCFA' }
   ],
   SORT_OPTIONS: [
     { value: 'featured', label: 'Mis en avant' },
@@ -158,7 +158,7 @@ export const MESSAGES = {
     SEARCHING: 'Recherche en cours...',
     NO_RESULTS: 'Aucun résultat trouvé',
     EMPTY_CART: 'Votre panier est vide. Découvrez nos produits !',
-    FREE_SHIPPING: 'Livraison gratuite à partir de 100€',
+    FREE_SHIPPING: 'Livraison gratuite à partir de 100FCFA',
     SECURE_PAYMENT: 'Paiement 100% sécurisé'
   }
 };
@@ -413,7 +413,7 @@ export const LOCALE_CONFIG = {
   DEFAULT_CURRENCY: 'EUR',
   DEFAULT_LOCALE: 'fr-FR',
   SUPPORTED_CURRENCIES: [
-    { code: 'EUR', symbol: '€', name: 'Euro' },
+    { code: 'EUR', symbol: 'FCFA', name: 'Euro' },
     { code: 'XOF', symbol: 'CFA', name: 'Franc CFA' },
     { code: 'USD', symbol: '$', name: 'Dollar US' }
   ],

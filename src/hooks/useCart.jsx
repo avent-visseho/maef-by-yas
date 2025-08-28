@@ -279,7 +279,7 @@ export const useCart = () => {
       remaining: remainingForFreeShipping,
       message: isFreeShipping 
         ? 'Livraison gratuite !' 
-        : `Plus que ${remainingForFreeShipping.toFixed(2)}€ pour la livraison gratuite`
+        : `Plus que ${remainingForFreeShipping.toFixed(2)}FCFA pour la livraison gratuite`
     };
   }, [totalAmount]);
 
@@ -298,7 +298,7 @@ export const useCart = () => {
       remaining,
       message: isValidOrder 
         ? 'Montant minimum atteint' 
-        : `Montant minimum: ${minOrderAmount}€ (manque ${remaining.toFixed(2)}€)`
+        : `Montant minimum: ${minOrderAmount}FCFA (manque ${remaining.toFixed(2)}FCFA)`
     };
   }, [totalAmount]);
 
@@ -371,7 +371,7 @@ export const useCart = () => {
     }
 
     const stats = getCartStats;
-    let summary = `${stats.totalItems} article${stats.totalItems > 1 ? 's' : ''} - ${totalAmount.toFixed(2)}€`;
+    let summary = `${stats.totalItems} article${stats.totalItems > 1 ? 's' : ''} - ${totalAmount.toFixed(2)}FCFA`;
     
     if (stats.categories.length > 1) {
       summary += ` (${stats.categories.length} catégories)`;
@@ -459,6 +459,6 @@ export const useCart = () => {
     canCheckout: getMinOrderInfo.isValid && totalItems > 0,
     hasItems: totalItems > 0,
     itemsCount: totalItems,
-    formattedTotal: `${totalAmount.toFixed(2)}€`
+    formattedTotal: `${totalAmount.toFixed(2)}FCFA`
   };
 };

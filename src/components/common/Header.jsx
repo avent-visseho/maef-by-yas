@@ -168,7 +168,7 @@ const Header = () => {
             </span>
           </div>
           <div className="text-center">
-            <span>Livraison gratuite à partir de 100€ !</span>
+            <span>Livraison gratuite à partir de 100FCFA !</span>
           </div>
           <div className="hidden md:block">
             <span>Paiement sécurisé</span>
@@ -187,11 +187,11 @@ const Header = () => {
               aria-label="Retour à l'accueil"
             >
               <img
-                src="/images/logos/maef-by-yas-logo.png"
+                src="/logos/maef-by-yas-logo.png"
                 alt={APP_CONFIG.NAME}
                 className="h-12 w-auto"
                 onError={(e) => {
-                  e.target.src = "/images/placeholder.jpg";
+                  e.target.src = "/logos/maef-by-yas-logo.png";
                 }}
               />
             </Link>

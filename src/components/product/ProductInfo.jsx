@@ -477,7 +477,7 @@ const ProductInfo = ({
                 Livraison gratuite
               </p>
               <p className="text-sm text-secondary-600">
-                À partir de 100€ d'achat
+                À partir de 100FCFA d'achat
               </p>
             </div>
           </div>

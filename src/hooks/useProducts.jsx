@@ -380,8 +380,8 @@ export const useProducts = (options = {}) => {
     if (filters.trending) active.push('Tendance');
     if (filters.rating > 0) active.push(`Note ≥ ${filters.rating}`);
     if (filters.priceRange.min > 0 || filters.priceRange.max < Infinity) {
-      const min = filters.priceRange.min > 0 ? `${filters.priceRange.min}€` : '';
-      const max = filters.priceRange.max < Infinity ? `${filters.priceRange.max}€` : '';
+      const min = filters.priceRange.min > 0 ? `${filters.priceRange.min}FCFA` : '';
+      const max = filters.priceRange.max < Infinity ? `${filters.priceRange.max}FCFA` : '';
       if (min && max) active.push(`Prix: ${min} - ${max}`);
       else if (min) active.push(`Prix ≥ ${min}`);
       else if (max) active.push(`Prix ≤ ${max}`);
