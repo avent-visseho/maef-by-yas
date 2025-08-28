@@ -403,18 +403,18 @@ const Shop = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar des filtres - Desktop */}
           <div className="hidden lg:block w-80 flex-shrink-0">
-            <div className="sticky top-8">
+            <div className="sticky top-8 ">
               <ProductFilter
                 products={products}
                 filters={filters}
                 onFiltersChange={handleFilterChange}
-                className="bg-white rounded-lg shadow-sm border border-gray-200"
+                className="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
               />
             </div>
           </div>
 
           {/* Contenu principal */}
-          <div className="flex-1">
+          <div className="flex-1 ">
             {/* Barre d'outils */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

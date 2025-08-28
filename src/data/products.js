@@ -98,10 +98,10 @@ export const PRODUCTS = [
     description: 'Magnifique pagne wax authentique aux motifs traditionnels africains. Tissu de qualité premium avec des couleurs éclatantes qui ne ternissent pas au lavage.',
     longDescription: 'Ce pagne wax traditionnel est confectionné selon les méthodes ancestrales africaines. Les motifs géométriques racontent une histoire de royauté et de noblesse. Le tissu 100% coton est traité selon la technique de la cire résistante, garantissant une longévité exceptionnelle et des couleurs vives qui résistent au temps.',
     images: [
-      '/images/products/pagnes/pagne-001-1.jpg',
-      '/images/products/pagnes/pagne-001-2.jpg',
-      '/images/products/pagnes/pagne-001-3.jpg',
-      '/images/products/pagnes/pagne-001-4.jpg'
+      '/images/products/pagnes/pagne_3.jpg',
+      '/images/products/pagnes/pagne_4.jpg',
+      '/images/products/pagnes/pagne_2.jpg',
+      '/images/products/pagnes/pagne_9.jpg'
     ],
     colors: [COLORS.ROUGE, COLORS.BLEU, COLORS.JAUNE, COLORS.VERT],
     sizes: SIZES.FABRIC,
@@ -130,9 +130,9 @@ export const PRODUCTS = [
     description: 'Pagne ankara moderne avec des motifs floraux contemporains. Parfait pour créer des tenues modernes et élégantes.',
     longDescription: 'Cette création moderne mélange harmonieusement tradition et contemporanéité. Les motifs floraux stylisés apportent une touche de fraîcheur et de féminité. Idéal pour confectionner robes, jupes ou accessoires tendance.',
     images: [
-      '/images/products/pagnes/pagne-002-1.jpg',
-      '/images/products/pagnes/pagne-002-2.jpg',
-      '/images/products/pagnes/pagne-002-3.jpg'
+      '/images/products/pagnes/pagne_3.jpg',
+      '/images/products/pagnes/pagne_6.jpg',
+      '/images/products/pagnes/pagne_1.jpg'
     ],
     colors: [COLORS.ROSE, COLORS.VIOLET, COLORS.ORANGE],
     sizes: SIZES.FABRIC,
@@ -160,9 +160,9 @@ export const PRODUCTS = [
     description: 'Sublime collier en perles dorées artisanales inspiré des bijoux traditionnels africains. Pièce unique et élégante.',
     longDescription: 'Ce collier exceptionnel est composé de perles dorées soigneusement sélectionnées et assemblées à la main par nos artisans. Chaque perle raconte une histoire et apporte une touche de luxe à votre tenue. Le fermoir en métal doré assure une fermeture sécurisée.',
     images: [
-      '/images/products/bijoux/collier-001-1.jpg',
-      '/images/products/bijoux/collier-001-2.jpg',
-      '/images/products/bijoux/collier-001-3.jpg'
+      '/images/products/bijoux/collier_1.jpg',
+      '/images/products/bijoux/collier_2.jpg',
+      '/images/products/bijoux/bracelet1.jpg'
     ],
     colors: [COLORS.DORE, COLORS.ARGENTE],
     sizes: ['Unique'],
@@ -189,8 +189,8 @@ export const PRODUCTS = [
     description: 'Élégantes boucles d\'oreilles créoles avec motifs ethniques gravés. Finition dorée et design intemporel.',
     longDescription: 'Ces boucles d\'oreilles créoles allient tradition et modernité. Les motifs ethniques finement gravés rendent hommage à l\'art africain traditionnel tout en s\'adaptant parfaitement aux tendances actuelles.',
     images: [
-      '/images/products/bijoux/boucles-001-1.jpg',
-      '/images/products/bijoux/boucles-001-2.jpg'
+      '/images/products/bijoux/collier_1.jpg',
+      '/images/products/bijoux/collier_2.jpg'
     ],
     colors: [COLORS.DORE, COLORS.ARGENTE, COLORS.NOIR],
     sizes: ['Unique'],
@@ -218,10 +218,10 @@ export const PRODUCTS = [
     description: 'Sac à main en cuir véritable tressé à la main par nos artisans. Design unique et finitions impeccables.',
     longDescription: 'Ce sac à main exceptionnel est entièrement confectionné à la main par nos maîtres artisans. Le cuir de première qualité est tressé selon une technique ancestrale, créant un motif unique et sophistiqué. L\'intérieur doublé dispose de plusieurs compartiments pratiques.',
     images: [
-      '/images/products/sacs/sac-001-1.jpg',
-      '/images/products/sacs/sac-001-2.jpg',
-      '/images/products/sacs/sac-001-3.jpg',
-      '/images/products/sacs/sac-001-4.jpg'
+      '/images/products/sacs/sac_1.jpg',
+      '/images/products/sacs/sac_2.jpg',
+      '/images/products/sacs/sac_3.jpg',
+      '/images/products/sacs/sac_4.jpg'
     ],
     colors: [COLORS.NOIR, COLORS.BEIGE, COLORS.ROUGE],
     sizes: SIZES.BAGS,
@@ -250,9 +250,9 @@ export const PRODUCTS = [
     description: 'Escarpins élégants à bout pointu avec talon de 8cm. Parfaits pour les occasions spéciales et le bureau.',
     longDescription: 'Ces escarpins sophistiqués combinent confort et élégance. Le cuir souple et la semelle intérieure rembourrée assurent un confort optimal même pour de longues journées. Le talon de 8cm affine la silhouette tout en restant stable.',
     images: [
-      '/images/products/chaussures/escarpin-001-1.jpg',
-      '/images/products/chaussures/escarpin-001-2.jpg',
-      '/images/products/chaussures/escarpin-001-3.jpg'
+      '/images/products/chaussures/chausure_1.jpg',
+      '/images/products/chaussures/chausure_2.jpg',
+      '/images/products/chaussures/chausure_3.jpg'
     ],
     colors: [COLORS.NOIR, COLORS.ROUGE, COLORS.BEIGE],
     sizes: SIZES.SHOES,
@@ -281,9 +281,9 @@ export const PRODUCTS = [
     description: 'Voile suisse de qualité premium avec broderies fines réalisées à la main. Élégance et sophistication assurées.',
     longDescription: 'Ce voile suisse exceptionnel est le fruit d\'un savoir-faire ancestral. Les broderies délicates sont réalisées entièrement à la main par nos brodeuses expertes. Le tissu léger et fluide offre un tombé parfait et un confort incomparable.',
     images: [
-      '/images/products/voiles/voile-001-1.jpg',
-      '/images/products/voiles/voile-001-2.jpg',
-      '/images/products/voiles/voile-001-3.jpg'
+      '/images/products/voiles/voiles_2.jpeg',
+      '/images/products/voiles/voiles_1.jpeg',
+      '/images/products/voiles/voiles_4.avif'
     ],
     colors: [COLORS.BLANC, COLORS.BEIGE, COLORS.ROSE],
     sizes: SIZES.FABRIC,
@@ -311,8 +311,8 @@ export const PRODUCTS = [
     description: 'Guipure en dentelle avec motifs floraux pour créations haute couture. Qualité exceptionnelle et finesse remarquable.',
     longDescription: 'Cette guipure d\'exception présente des motifs floraux d\'une finesse remarquable. Parfaite pour les créations de haute couture, elle apporte une touche de luxe et de raffinement à vos confections.',
     images: [
-      '/images/products/guipures/guipure-001-1.jpg',
-      '/images/products/guipures/guipure-001-2.jpg'
+      '/images/products/pagnes/pagne_16.jpg',
+      '/images/products/pagnes/pagne_15.jpg'
     ],
     colors: [COLORS.BLANC, COLORS.BEIGE, COLORS.NOIR],
     sizes: SIZES.FABRIC,
@@ -339,9 +339,9 @@ export const PRODUCTS = [
     description: 'Tissu à sequins brillants parfait pour robes de soirée et tenues de fête. Éclat garanti sous les lumières.',
     longDescription: 'Ce tissu à sequins d\'une qualité exceptionnelle transformera vos créations en pièces éblouissantes. Les sequins de haute qualité sont solidement fixés et résistent aux mouvements répétés. Idéal pour robes de soirée, tops de fête ou accessoires glamour.',
     images: [
-      '/images/products/sequins/sequin-001-1.jpg',
-      '/images/products/sequins/sequin-001-2.jpg',
-      '/images/products/sequins/sequin-001-3.jpg'
+      '/images/products/pagnes/pagne_14.jpg',
+      '/images/products/pagnes/pagne_10.jpg',
+      '/images/products/pagnes/pagne_11.jpg'
     ],
     colors: [COLORS.DORE, COLORS.ARGENTE, COLORS.NOIR, COLORS.ROUGE],
     sizes: SIZES.FABRIC,
@@ -369,8 +369,8 @@ export const PRODUCTS = [
     description: 'Tissu satin de qualité premium pour confectionner des robes de soirée élégantes et sophistiquées.',
     longDescription: 'Ce tissu satin d\'exception offre un tombé parfait et un éclat subtil qui sublime toutes vos créations. Sa texture soyeuse et sa brillance naturelle en font le choix idéal pour les robes de soirée, les tops chics ou les jupes plissées.',
     images: [
-      '/images/products/tissus/tissu-001-1.jpg',
-      '/images/products/tissus/tissu-001-2.jpg'
+       '/images/products/pagnes/pagne_10.jpg',
+       '/images/products/pagnes/pagne_1.jpg',
     ],
     colors: [COLORS.NOIR, COLORS.ROUGE, COLORS.BLEU, COLORS.VIOLET],
     sizes: SIZES.FABRIC,
@@ -400,9 +400,9 @@ export const PRODUCTS = [
     description: 'Authentique pagne Kente tissé main aux motifs royaux traditionnels. Pièce d\'exception pour occasions spéciales.',
     longDescription: 'Ce pagne Kente authentique est tissé selon les traditions ancestrales ghanéennes. Chaque motif a une signification particulière liée à la royauté et à la sagesse. Cette pièce d\'exception est parfaite pour les cérémonies importantes et les événements culturels.',
     images: [
-      '/images/products/pagnes/pagne-003-1.jpg',
-      '/images/products/pagnes/pagne-003-2.jpg',
-      '/images/products/pagnes/pagne-003-3.jpg'
+      '/images/products/pagnes/pagne_1.jpg',
+      '/images/products/pagnes/pagne_2.jpg',
+      '/images/products/pagnes/pagne_3.jpg'
     ],
     colors: [COLORS.DORE, COLORS.ROUGE, COLORS.VERT],
     sizes: SIZES.FABRIC,
@@ -431,8 +431,8 @@ export const PRODUCTS = [
     description: 'Bracelet manchette en cuivre avec gravures traditionnelles africaines. Artisanat authentique et design unique.',
     longDescription: 'Ce bracelet manchette impressionnant est forgé et gravé à la main par nos artisans spécialisés. Les motifs traditionnels racontent des histoires ancestrales et apportent une dimension culturelle forte à votre style.',
     images: [
-      '/images/products/bijoux/bracelet-001-1.jpg',
-      '/images/products/bijoux/bracelet-001-2.jpg'
+      '/images/products/bijoux/bracelet3.jpg',
+      '/images/products/bijoux/bracelet_2.avif'
     ],
     colors: [COLORS.DORE, COLORS.ARGENTE],
     sizes: ['S', 'M', 'L'],
@@ -461,9 +461,8 @@ export const PRODUCTS = [
     description: 'Pochette de soirée scintillante avec paillettes dorées et chaîne amovible. Parfaite pour vos sorties glamour.',
     longDescription: 'Cette pochette élégante apportera une touche de glamour à toutes vos tenues de soirée. Les paillettes dorées captent magnifiquement la lumière, tandis que la chaîne fine et amovible vous offre plusieurs options de port.',
     images: [
-      '/images/products/sacs/sac-002-1.jpg',
-      '/images/products/sacs/sac-002-2.jpg',
-      '/images/products/sacs/sac-002-3.jpg'
+      '/images/products/sacs/sac_5.jpeg',
+      'public/images/products/sacs/sac_6.jpeg',
     ],
     colors: [COLORS.DORE, COLORS.ARGENTE, COLORS.NOIR],
     sizes: ['Unique'],
@@ -491,8 +490,8 @@ export const PRODUCTS = [
     description: 'Sandales compensées avec détails tressés et semelle en corde. Confort et style pour l\'été.',
     longDescription: 'Ces sandales compensées allient parfaitement confort et élégance. La semelle compensée en corde apporte une touche naturelle, tandis que les détails tressés sur les lanières ajoutent une dimension artisanale chic.',
     images: [
-      '/images/products/chaussures/sandale-001-1.jpg',
-      '/images/products/chaussures/sandale-001-2.jpg'
+      '/images/products/chaussures/chausure_7.jpg',
+      '/images/products/chaussures/chausure_8.jpg'
     ],
     colors: [COLORS.BEIGE, COLORS.NOIR, COLORS.ROSE],
     sizes: SIZES.SHOES,
@@ -521,8 +520,8 @@ export const PRODUCTS = [
     description: 'Voile suisse pour homme avec broderies géométriques élégantes. Parfait pour boubous et tenues traditionnelles.',
     longDescription: 'Ce voile suisse masculin se distingue par ses broderies géométriques raffinées qui respectent les codes esthétiques traditionnels tout en apportant une touche de modernité. Idéal pour confectionner des boubous élégants.',
     images: [
-      '/images/products/voiles/voile-002-1.jpg',
-      '/images/products/voiles/voile-002-2.jpg'
+      '/images/products/pagnes/pagne_12.jpg',
+      '/images/products/pagnes/pagne_14.jpg'
     ],
     colors: [COLORS.BLANC, COLORS.BEIGE],
     sizes: SIZES.FABRIC,
