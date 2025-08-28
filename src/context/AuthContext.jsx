@@ -157,7 +157,7 @@ export const AuthProvider = ({ children }) => {
         email,
         firstName: 'John',
         lastName: 'Doe',
-        phone: '+33 6 12 34 56 78',
+        phone: '+2290196945997',
         avatar: '/images/default-avatar.png',
         createdAt: new Date().toISOString(),
         preferences: {
