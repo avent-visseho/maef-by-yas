@@ -217,7 +217,7 @@ const testimonials = [
   {
     id: 1,
     name: "Amina K.",
-    location: "Paris",
+    location: "Cotonou",
     rating: 5,
     text: "Des produits d'une qualité exceptionnelle ! J'ai commandé plusieurs pagnes et ils sont magnifiques. Livraison rapide et emballage soigné.",
     avatar: "👩🏾",
@@ -225,7 +225,7 @@ const testimonials = [
   {
     id: 2,
     name: "Marie L.",
-    location: "Lyon",
+    location: "ouidah",
     rating: 5,
     text: "Je suis conquise par les bijoux artisanaux. Chaque pièce est unique et raconte une histoire. Service client au top !",
     avatar: "👩🏼",
@@ -233,7 +233,7 @@ const testimonials = [
   {
     id: 3,
     name: "Fatou D.",
-    location: "Marseille",
+    location: "Porto-Novo",
     rating: 5,
     text: "Mes sacs préférés viennent de chez Maef By Yas. La qualité du cuir et les finitions sont irréprochables.",
     avatar: "👩🏿",

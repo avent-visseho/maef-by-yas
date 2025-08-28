@@ -1,4 +1,4 @@
-# React + Vite
+# React + Vite + tailwinds css
 
 maef-by-yas/
 ├── public/
