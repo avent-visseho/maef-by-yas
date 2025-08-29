@@ -1,11 +1,5 @@
 /**
- * Header.jsx - Composant d'en-tête principal de Maef By Yas
- *
- * Ce composant gère la navigation principale, le panier, la recherche,
- * l'authentification et tous les éléments de l'en-tête responsive.
- *
- * @author Votre équipe de développement
- * @version 1.0.0
+ * Header.jsx - Composant d'en-tête principal de Maef By Yas (Corrigé)
  */
 
 import React, { useState, useEffect, useRef } from "react";
@@ -25,9 +19,6 @@ import {
 import { NAVIGATION_CONFIG, APP_CONFIG } from "@utils/constants";
 import { debounce } from "@utils/helpers";
 
-/**
- * Composant Header principal
- */
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -47,7 +38,7 @@ const Header = () => {
   const mobileMenuRef = useRef(null);
 
   /**
-   * Gestionnaire du scroll pour l'effet de transparence
+   * Gestionnaire du scroll pour l'effet d'ombre
    */
   useEffect(() => {
     const handleScroll = debounce(() => {
@@ -143,18 +134,16 @@ const Header = () => {
   };
 
   /**
-   * Classes CSS dynamiques pour l'en-tête
+   * Classes CSS pour l'en-tête - FOND BLANC TOUJOURS
    */
   const headerClasses = `
-    fixed top-0 left-0 right-0 z-50 transition-all duration-300
-    ${
-      isScrolled ? "bg-white/95 backdrop-blur-sm shadow-soft" : "bg-transparent"
-    }
+    fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300
+    ${isScrolled ? "shadow-lg" : "shadow-md"}
   `.trim();
 
   return (
     <>
-      {/* Barre d'informations top (optionnelle) */}
+      {/* Barre d'informations top */}
       <div className="bg-primary-600 text-white text-sm py-2 px-4">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-4">
@@ -191,7 +180,7 @@ const Header = () => {
                 alt={APP_CONFIG.NAME}
                 className="h-12 w-auto"
                 onError={(e) => {
-                  e.target.src = "/logos/maef-by-yas-logo.png";
+                  e.target.src = "/logos/fallback-logo.png";
                 }}
               />
             </Link>
@@ -207,9 +196,7 @@ const Header = () => {
                     ${
                       isActiveLink(item.path, item.exact)
                         ? "text-primary-600"
-                        : isScrolled
-                        ? "text-secondary-700 hover:text-primary-600"
-                        : "text-white hover:text-primary-200"
+                        : "text-gray-700 hover:text-primary-600"
                     }
                   `}
                 >
@@ -228,14 +215,7 @@ const Header = () => {
                 {!isSearchOpen ? (
                   <button
                     onClick={toggleSearch}
-                    className={`
-                      p-2 rounded-full transition-colors
-                      ${
-                        isScrolled
-                          ? "text-secondary-700 hover:text-primary-600 hover:bg-primary-50"
-                          : "text-white hover:text-primary-200 hover:bg-white/10"
-                      }
-                    `}
+                    className="p-2 rounded-full transition-colors text-gray-700 hover:text-primary-600 hover:bg-gray-100"
                     aria-label="Ouvrir la recherche"
                   >
                     <Search className="w-5 h-5" />
@@ -248,12 +228,12 @@ const Header = () => {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Rechercher..."
-                      className="w-64 px-4 py-2 border border-secondary-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-64 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                     <button
                       type="button"
                       onClick={toggleSearch}
-                      className="ml-2 p-2 text-secondary-500 hover:text-secondary-700"
+                      className="ml-2 p-2 text-gray-500 hover:text-gray-700"
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -261,20 +241,12 @@ const Header = () => {
                 )}
               </div>
 
-              {/* Favoris (pour usage futur) */}
+              {/* Favoris */}
               <button
-                className={`
-                  hidden md:block p-2 rounded-full transition-colors relative
-                  ${
-                    isScrolled
-                      ? "text-secondary-700 hover:text-primary-600 hover:bg-primary-50"
-                      : "text-white hover:text-primary-200 hover:bg-white/10"
-                  }
-                `}
+                className="hidden md:block p-2 rounded-full transition-colors relative text-gray-700 hover:text-primary-600 hover:bg-gray-100"
                 aria-label="Mes favoris"
               >
                 <Heart className="w-5 h-5" />
-                {/* Badge pour le nombre de favoris */}
                 <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   0
                 </span>
@@ -284,14 +256,7 @@ const Header = () => {
               <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={toggleUserMenu}
-                  className={`
-                    p-2 rounded-full transition-colors
-                    ${
-                      isScrolled
-                        ? "text-secondary-700 hover:text-primary-600 hover:bg-primary-50"
-                        : "text-white hover:text-primary-200 hover:bg-white/10"
-                    }
-                  `}
+                  className="p-2 rounded-full transition-colors text-gray-700 hover:text-primary-600 hover:bg-gray-100"
                   aria-label={
                     isAuthenticated ? "Menu utilisateur" : "Se connecter"
                   }
@@ -301,35 +266,33 @@ const Header = () => {
 
                 {/* Dropdown menu utilisateur */}
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-medium py-2 z-50">
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 border border-gray-200">
                     {isAuthenticated ? (
                       <>
-                        <div className="px-4 py-2 border-b border-secondary-200">
-                          <p className="font-medium text-secondary-900">
+                        <div className="px-4 py-2 border-b border-gray-200">
+                          <p className="font-medium text-gray-900">
                             {user?.firstName} {user?.lastName}
                           </p>
-                          <p className="text-sm text-secondary-500">
-                            {user?.email}
-                          </p>
+                          <p className="text-sm text-gray-500">{user?.email}</p>
                         </div>
                         <Link
                           to="/profile"
-                          className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                         >
                           Mon profil
                         </Link>
                         <Link
                           to="/orders"
-                          className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                         >
                           Mes commandes
                         </Link>
                         <button
                           onClick={() => {
-                            // logout() sera implémenté plus tard
+                            // logout() à implémenter
                             setIsUserMenuOpen(false);
                           }}
-                          className="w-full text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
+                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                         >
                           Se déconnecter
                         </button>
@@ -338,13 +301,13 @@ const Header = () => {
                       <>
                         <Link
                           to="/login"
-                          className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                         >
                           Se connecter
                         </Link>
                         <Link
                           to="/register"
-                          className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                         >
                           Créer un compte
                         </Link>
@@ -357,19 +320,12 @@ const Header = () => {
               {/* Panier */}
               <button
                 onClick={toggleCart}
-                className={`
-                  p-2 rounded-full transition-colors relative
-                  ${
-                    isScrolled
-                      ? "text-secondary-700 hover:text-primary-600 hover:bg-primary-50"
-                      : "text-white hover:text-primary-200 hover:bg-white/10"
-                  }
-                `}
+                className="p-2 rounded-full transition-colors relative text-gray-700 hover:text-primary-600 hover:bg-gray-100"
                 aria-label={`Panier (${totalItems} articles)`}
               >
                 <ShoppingBag className="w-5 h-5" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center animate-pulse">
+                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {totalItems > 99 ? "99+" : totalItems}
                   </span>
                 )}
@@ -378,14 +334,7 @@ const Header = () => {
               {/* Menu hamburger - Mobile */}
               <button
                 onClick={toggleMobileMenu}
-                className={`
-                  lg:hidden p-2 rounded-full transition-colors
-                  ${
-                    isScrolled
-                      ? "text-secondary-700 hover:text-primary-600 hover:bg-primary-50"
-                      : "text-white hover:text-primary-200 hover:bg-white/10"
-                  }
-                `}
+                className="lg:hidden p-2 rounded-full transition-colors text-gray-700 hover:text-primary-600 hover:bg-gray-100"
                 aria-label="Menu principal"
               >
                 {isMobileMenuOpen ? (
@@ -402,7 +351,7 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div
             ref={mobileMenuRef}
-            className="lg:hidden bg-white border-t border-secondary-200 shadow-soft"
+            className="lg:hidden bg-white border-t border-gray-200 shadow-lg"
           >
             <div className="container mx-auto px-4 py-4">
               {/* Recherche mobile */}
@@ -413,9 +362,9 @@ const Header = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Rechercher des produits..."
-                    className="w-full pl-10 pr-4 py-3 border border-secondary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
-                  <Search className="absolute left-3 top-3.5 w-5 h-5 text-secondary-400" />
+                  <Search className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
                 </div>
               </form>
 
@@ -430,7 +379,7 @@ const Header = () => {
                       ${
                         isActiveLink(item.path, item.exact)
                           ? "text-primary-600 bg-primary-50"
-                          : "text-secondary-700 hover:text-primary-600 hover:bg-secondary-50"
+                          : "text-gray-700 hover:text-primary-600 hover:bg-gray-50"
                       }
                     `}
                   >
@@ -440,26 +389,24 @@ const Header = () => {
               </nav>
 
               {/* Actions utilisateur mobile */}
-              <div className="mt-6 pt-6 border-t border-secondary-200 space-y-2">
+              <div className="mt-6 pt-6 border-t border-gray-200 space-y-2">
                 {isAuthenticated ? (
                   <>
                     <div className="px-4 py-2">
-                      <p className="font-medium text-secondary-900">
+                      <p className="font-medium text-gray-900">
                         {user?.firstName} {user?.lastName}
                       </p>
-                      <p className="text-sm text-secondary-500">
-                        {user?.email}
-                      </p>
+                      <p className="text-sm text-gray-500">{user?.email}</p>
                     </div>
                     <Link
                       to="/profile"
-                      className="block py-3 px-4 text-secondary-700 hover:text-primary-600 hover:bg-secondary-50 rounded-lg transition-colors"
+                      className="block py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors"
                     >
                       Mon profil
                     </Link>
                     <Link
                       to="/orders"
-                      className="block py-3 px-4 text-secondary-700 hover:text-primary-600 hover:bg-secondary-50 rounded-lg transition-colors"
+                      className="block py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors"
                     >
                       Mes commandes
                     </Link>
@@ -485,9 +432,6 @@ const Header = () => {
           </div>
         )}
       </header>
-
-      {/* Spacer pour éviter que le contenu soit caché sous l'header fixe */}
-      <div className="h-20" style={{ marginTop: "40px" }}></div>
     </>
   );
 };
