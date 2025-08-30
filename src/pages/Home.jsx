@@ -4,7 +4,7 @@
  * Cette page affiche :
  * - Section hero avec carrousel
  * - Catégories en vedette
- * - Produits vedette et tendances
+ * - Produits vedette et tendances (avec navigation vers ProductDetail)
  * - Newsletter et témoignages
  * - Informations sur la livraison et garanties
  *
@@ -13,7 +13,7 @@
  */
 
 import React, { useState, useEffect, useMemo } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Truck,
   Shield,
@@ -44,108 +44,13 @@ import {
   Send,
 } from "lucide-react";
 
-// Mock data basé sur vos données existantes
-const mockFeaturedProducts = [
-  {
-    id: "pagne-001",
-    name: "Pagne Wax Traditionnel Royal",
-    category: "pagnes",
-    price: 45.0,
-    originalPrice: 60.0,
-    images: ["/images/products/pagnes/pagne_7.jpg"],
-    rating: 4.8,
-    reviews: 156,
-    inStock: true,
-    quantity: 25,
-    featured: true,
-    trending: false,
-    onSale: true,
-    description:
-      "Magnifique pagne wax authentique aux motifs traditionnels africains.",
-    tags: ["traditionnel", "wax", "coton", "authentique", "africain"],
-  },
-  {
-    id: "bijoux-001",
-    name: "Collier Perles Dorées Africaines",
-    category: "bijoux",
-    price: 89.0,
-    images: ["/images/products/bijoux/collier_1.jpg"],
-    rating: 4.9,
-    reviews: 67,
-    inStock: true,
-    quantity: 12,
-    featured: true,
-    trending: false,
-    onSale: false,
-    description:
-      "Sublime collier en perles dorées artisanales inspiré des bijoux traditionnels africains.",
-  },
-  {
-    id: "sac-001",
-    name: "Sac à Main Cuir Tressé Artisanal",
-    category: "sacs",
-    price: 156.0,
-    images: ["/images/products/sacs/sac_1.jpg"],
-    rating: 4.8,
-    reviews: 43,
-    inStock: true,
-    quantity: 8,
-    featured: true,
-    trending: false,
-    onSale: false,
-    description:
-      "Sac à main en cuir véritable tressé à la main par nos artisans.",
-  },
-  {
-    id: "chaussure-001",
-    name: "Escarpins Élégants Bout Pointu",
-    category: "chaussures",
-    price: 98.0,
-    images: ["/images/products/chaussures/chausure_3.jpg"],
-    rating: 4.5,
-    reviews: 128,
-    inStock: true,
-    quantity: 35,
-    featured: false,
-    trending: true,
-    onSale: false,
-    description: "Escarpins élégants à bout pointu avec talon de 8cm.",
-  },
-  {
-    id: "voile-001",
-    name: "Voile Suisse Premium Brodé Main",
-    category: "voiles-suisses",
-    price: 234.0,
-    images: ["/images/products/voiles/voiles_1.jpeg"],
-    rating: 4.9,
-    reviews: 34,
-    inStock: true,
-    quantity: 15,
-    featured: true,
-    trending: false,
-    onSale: false,
-    description:
-      "Voile suisse de qualité premium avec broderies fines réalisées à la main.",
-  },
-  {
-    id: "bijoux-003",
-    name: "Bracelet Manchette Cuivre Gravé",
-    category: "bijoux",
-    price: 67.0,
-    originalPrice: 89.0,
-    images: ["/images/products/bijoux/bracelet_1.jpg"],
-    rating: 4.4,
-    reviews: 52,
-    inStock: true,
-    quantity: 15,
-    featured: false,
-    trending: true,
-    onSale: true,
-    description:
-      "Bracelet manchette en cuivre avec gravures traditionnelles africaines.",
-  },
-];
+// Imports des données et composants
+import { PRODUCTS } from "../data/products";
+import { useCart } from "../context/CartContext";
+import ProductCard from "../components/shop/ProductCard";
+import { formatPrice } from "../utils/helpers";
 
+// Mock data pour les catégories
 const mockCategories = [
   {
     id: "pagnes",
@@ -241,122 +146,11 @@ const testimonials = [
   },
 ];
 
-// Contexte panier simplifié pour la démo
-const CartContext = React.createContext();
-
-const CartProvider = ({ children }) => {
-  const [cartState, setCartState] = useState({
-    items: [],
-    totalItems: 0,
-    totalAmount: 0,
-    isOpen: false,
-  });
-
-  const addToCart = (product, quantity = 1) => {
-    setCartState((prev) => {
-      const existingItem = prev.items.find((item) => item.id === product.id);
-
-      let newItems;
-      if (existingItem) {
-        newItems = prev.items.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      } else {
-        newItems = [...prev.items, { ...product, quantity }];
-      }
-
-      const newTotalItems = newItems.reduce(
-        (sum, item) => sum + item.quantity,
-        0
-      );
-      const newTotalAmount = newItems.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0
-      );
-
-      return {
-        ...prev,
-        items: newItems,
-        totalItems: newTotalItems,
-        totalAmount: newTotalAmount,
-      };
-    });
-  };
-
-  const removeFromCart = (productId) => {
-    setCartState((prev) => {
-      const newItems = prev.items.filter((item) => item.id !== productId);
-      const newTotalItems = newItems.reduce(
-        (sum, item) => sum + item.quantity,
-        0
-      );
-      const newTotalAmount = newItems.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0
-      );
-
-      return {
-        ...prev,
-        items: newItems,
-        totalItems: newTotalItems,
-        totalAmount: newTotalAmount,
-      };
-    });
-  };
-
-  const toggleCart = () => {
-    setCartState((prev) => ({ ...prev, isOpen: !prev.isOpen }));
-  };
-
-  const isInCart = (productId) => {
-    return cartState.items.some((item) => item.id === productId);
-  };
-
-  return (
-    <CartContext.Provider
-      value={{
-        ...cartState,
-        addToCart,
-        removeFromCart,
-        toggleCart,
-        isInCart,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
-};
-
-const useCart = () => {
-  const context = React.useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within CartProvider");
-  }
-  return context;
-};
-
-// Utilitaires
-const formatPrice = (price, currency = "XOF") => {
-  return new Intl.NumberFormat("fr-FR", {
-    style: "currency",
-    currency: currency,
-  }).format(price);
-};
-
-const calculateDiscountPercentage = (originalPrice, salePrice) => {
-  if (originalPrice <= 0 || salePrice <= 0 || salePrice >= originalPrice) {
-    return 0;
-  }
-  const discount = ((originalPrice - salePrice) / originalPrice) * 100;
-  return Math.round(discount);
-};
-
 // Composant Hero
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -437,7 +231,10 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="group px-8 py-4 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl flex items-center justify-center space-x-3">
+              <button
+                onClick={() => navigate("/shop")}
+                className="group px-8 py-4 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl flex items-center justify-center space-x-3"
+              >
                 <ShoppingBag className="w-5 h-5" />
                 <span>{currentSlideData.ctaText}</span>
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -512,200 +309,6 @@ const Hero = () => {
   );
 };
 
-// Composant ProductCard
-const ProductCard = ({ product, onToggleFavorite, isFavorite = false }) => {
-  const { addToCart, isInCart } = useCart();
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
-
-  const discountPercentage = calculateDiscountPercentage(
-    product.originalPrice,
-    product.price
-  );
-  const isInCartAlready = isInCart(product.id);
-
-  const handleAddToCart = async () => {
-    if (isInCartAlready) return;
-
-    setIsAddingToCart(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      addToCart(product, 1);
-    } catch (error) {
-      console.error("Erreur ajout panier:", error);
-    } finally {
-      setIsAddingToCart(false);
-    }
-  };
-
-  return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden">
-      <div className="relative aspect-square overflow-hidden">
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col space-y-2 z-10">
-          {product.onSale && discountPercentage > 0 && (
-            <div className="bg-red-500 text-white px-2 py-1 rounded-md text-xs font-semibold flex items-center">
-              -{discountPercentage}%
-            </div>
-          )}
-          {product.featured && (
-            <div className="bg-pink-600 text-white px-2 py-1 rounded-md text-xs font-semibold flex items-center">
-              <Zap className="w-3 h-3 mr-1" />
-              Vedette
-            </div>
-          )}
-          {product.trending && (
-            <div className="bg-orange-500 text-white px-2 py-1 rounded-md text-xs font-semibold">
-              🔥 Tendance
-            </div>
-          )}
-        </div>
-
-        {/* Actions rapides */}
-        <div className="absolute top-3 right-3 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button
-            onClick={() => onToggleFavorite?.(product.id)}
-            className={`p-2 rounded-full shadow-md transition-colors ${
-              isFavorite
-                ? "bg-red-50 text-red-600 border border-red-200"
-                : "bg-white text-gray-600 hover:text-red-600"
-            }`}
-            aria-label={
-              isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"
-            }
-          >
-            <Heart className={`w-4 h-4 ${isFavorite ? "fill-current" : ""}`} />
-          </button>
-
-          <button className="p-2 bg-white text-gray-600 hover:text-pink-600 rounded-full shadow-md transition-colors">
-            <Eye className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Image du produit */}
-        <img
-          src={product.images?.[0] || "/images/products/pagnes/pagne_12.jpg"}
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          onError={(e) => {
-            // Fallback vers un dégradé si l'image ne charge pas
-            e.target.style.display = "none";
-            e.target.nextSibling.style.display = "block";
-          }}
-        />
-        {/* Dégradé de fallback */}
-        <div
-          className={`w-full h-full transition-transform duration-500 group-hover:scale-110 ${
-            product.category === "pagnes"
-              ? "bg-gradient-to-br from-red-300 to-pink-400"
-              : product.category === "bijoux"
-              ? "bg-gradient-to-br from-yellow-300 to-amber-400"
-              : product.category === "sacs"
-              ? "bg-gradient-to-br from-green-300 to-emerald-400"
-              : product.category === "chaussures"
-              ? "bg-gradient-to-br from-purple-300 to-indigo-400"
-              : "bg-gradient-to-br from-gray-300 to-gray-400"
-          }`}
-          style={{ display: "none" }}
-        />
-
-        {/* Stock faible */}
-        {product.inStock && product.quantity && product.quantity < 10 && (
-          <div className="absolute bottom-3 right-3 bg-orange-500 text-white px-2 py-1 rounded text-xs font-medium">
-            Plus que {product.quantity}
-          </div>
-        )}
-      </div>
-
-      <div className="p-4 space-y-3">
-        <div>
-          <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors line-clamp-2">
-            {product.name}
-          </h3>
-          <p className="text-sm text-gray-500 capitalize">{product.category}</p>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <span className="font-bold text-lg text-pink-600">
-              {formatPrice(product.price)}
-            </span>
-            {product.originalPrice && (
-              <span className="text-sm text-gray-500 line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {product.rating && (
-          <div className="flex items-center space-x-1">
-            {Array.from({ length: 5 }, (_, i) => (
-              <Star
-                key={i}
-                className={`w-4 h-4 ${
-                  i < Math.floor(product.rating)
-                    ? "text-yellow-400 fill-current"
-                    : "text-gray-300"
-                }`}
-              />
-            ))}
-            {product.reviews && (
-              <span className="text-xs text-gray-500 ml-1">
-                ({product.reviews})
-              </span>
-            )}
-          </div>
-        )}
-
-        <div className="flex items-center justify-between pt-2">
-          <div className="flex items-center text-sm">
-            {product.inStock ? (
-              <span className="text-green-600 flex items-center">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                En stock
-              </span>
-            ) : (
-              <span className="text-red-600 flex items-center">
-                <div className="w-2 h-2 bg-red-500 rounded-full mr-2" />
-                Épuisé
-              </span>
-            )}
-          </div>
-        </div>
-
-        {product.inStock && (
-          <button
-            onClick={handleAddToCart}
-            disabled={isAddingToCart || isInCartAlready}
-            className={`w-full py-2 px-4 rounded-lg font-medium text-sm transition-colors ${
-              isInCartAlready
-                ? "bg-green-100 text-green-700 cursor-default"
-                : "bg-pink-600 text-white hover:bg-pink-700"
-            } disabled:opacity-50 disabled:cursor-not-allowed`}
-          >
-            {isAddingToCart ? (
-              <div className="flex items-center justify-center">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                Ajout...
-              </div>
-            ) : isInCartAlready ? (
-              <div className="flex items-center justify-center">
-                <ShoppingBag className="w-4 h-4 mr-2" />
-                Dans le panier
-              </div>
-            ) : (
-              <div className="flex items-center justify-center">
-                <ShoppingBag className="w-4 h-4 mr-2" />
-                Ajouter au panier
-              </div>
-            )}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-};
-
 // Composant Categories
 const Categories = ({ onCategoryClick }) => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -768,12 +371,13 @@ const Categories = ({ onCategoryClick }) => {
   );
 };
 
-// Composant FeaturedProducts
+// Composant FeaturedProducts utilisant ProductCard de Shop
 const FeaturedProducts = ({ title, products = [], onProductClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [favorites, setFavorites] = useState([]);
   const itemsPerView = 4;
   const maxSlide = Math.ceil(products.length / itemsPerView) - 1;
+  const navigate = useNavigate();
 
   const goToSlide = (direction) => {
     if (direction === "next") {
@@ -789,6 +393,10 @@ const FeaturedProducts = ({ title, products = [], onProductClick }) => {
         ? prev.filter((id) => id !== productId)
         : [...prev, productId]
     );
+  };
+
+  const handleProductClick = (product) => {
+    navigate(`/product/${product.id}`);
   };
 
   const visibleProducts = products.slice(
@@ -834,9 +442,17 @@ const FeaturedProducts = ({ title, products = [], onProductClick }) => {
               <ProductCard
                 key={product.id}
                 product={product}
-                isFavorite={favorites.includes(product.id)}
+                compact={false}
+                showQuickActions={true}
+                showRating={true}
+                showDescription={false}
+                onClick={handleProductClick}
                 onToggleFavorite={toggleFavorite}
-                onClick={() => onProductClick?.(product)}
+                onQuickView={(product) => {
+                  console.log("Vue rapide:", product);
+                }}
+                isFavorite={favorites.includes(product.id)}
+                className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow border border-gray-200"
               />
             ))}
           </div>
@@ -1262,74 +878,87 @@ const AboutPreview = () => {
 
 // Composant principal Home
 const Home = () => {
-  const [featuredProducts] = useState(
-    mockFeaturedProducts.filter((p) => p.featured)
-  );
-  const [trendingProducts] = useState(
-    mockFeaturedProducts.filter((p) => p.trending)
-  );
+  const navigate = useNavigate();
+
+  // Sélection des produits à afficher (8-12 produits)
+  const featuredProducts = useMemo(() => {
+    return PRODUCTS.filter((product) => product.featured).slice(0, 8);
+  }, []);
+
+  const trendingProducts = useMemo(() => {
+    return PRODUCTS.filter((product) => product.trending).slice(0, 8);
+  }, []);
+
+  // Produits en promotion (nouveauté)
+  const saleProducts = useMemo(() => {
+    return PRODUCTS.filter((product) => product.onSale).slice(0, 8);
+  }, []);
 
   const handleCategoryClick = (category) => {
-    console.log("Navigate to category:", category.id);
-    // Navigation vers la page catégorie
-  };
-
-  const handleProductClick = (product) => {
-    console.log("Navigate to product:", product.id);
-    // Navigation vers la page produit
+    navigate(`/shop?category=${category.id}`);
   };
 
   return (
-    <CartProvider>
-      <div className="min-h-screen">
-        {/* Hero Section */}
-        <Hero />
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <Hero />
 
-        {/* Trust Indicators */}
-        <TrustedBy />
+      {/* Trust Indicators */}
+      <TrustedBy />
 
-        {/* Categories Section */}
-        <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-4">
-                Nos Collections
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Explorez notre univers d'artisanat authentique
-              </p>
-            </div>
-            <Categories onCategoryClick={handleCategoryClick} />
+      {/* Categories Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-4">
+              Nos Collections
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Explorez notre univers d'artisanat authentique
+            </p>
           </div>
-        </section>
+          <Categories onCategoryClick={handleCategoryClick} />
+        </div>
+      </section>
 
-        {/* Featured Products */}
+      {/* Featured Products */}
+      {featuredProducts.length > 0 && (
         <FeaturedProducts
           title="Produits en Vedette"
           products={featuredProducts}
-          onProductClick={handleProductClick}
         />
+      )}
 
-        {/* Features */}
-        <Features />
+      {/* Features */}
+      <Features />
 
-        {/* Trending Products */}
+      {/* Sale Products */}
+      {saleProducts.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-red-50 to-pink-50">
+          <FeaturedProducts
+            title="🔥 Promotions Exceptionnelles"
+            products={saleProducts}
+          />
+        </section>
+      )}
+
+      {/* Trending Products */}
+      {trendingProducts.length > 0 && (
         <FeaturedProducts
-          title="Tendances du Moment"
+          title="⭐ Tendances du Moment"
           products={trendingProducts}
-          onProductClick={handleProductClick}
         />
+      )}
 
-        {/* About Preview */}
-        <AboutPreview />
+      {/* About Preview */}
+      <AboutPreview />
 
-        {/* Testimonials */}
-        <Testimonials />
+      {/* Testimonials */}
+      <Testimonials />
 
-        {/* Newsletter */}
-        <Newsletter />
-      </div>
-    </CartProvider>
+      {/* Newsletter */}
+      <Newsletter />
+    </div>
   );
 };
 
