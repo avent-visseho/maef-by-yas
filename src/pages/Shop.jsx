@@ -335,7 +335,7 @@ const Shop = () => {
   }, [filters]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 mt-12">
       {/* En-tête de la page */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-8">

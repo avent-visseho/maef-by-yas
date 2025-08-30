@@ -13,6 +13,7 @@
  */
 
 import React, { useState, useEffect, useMemo } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Truck,
   Shield,
@@ -337,7 +338,7 @@ const useCart = () => {
 };
 
 // Utilitaires
-const formatPrice = (price, currency = "EUR") => {
+const formatPrice = (price, currency = "XOF") => {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",
     currency: currency,
@@ -859,10 +860,13 @@ const FeaturedProducts = ({ title, products = [], onProductClick }) => {
         </div>
 
         <div className="text-center mt-12">
-          <button className="group inline-flex items-center space-x-2 px-8 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+          <Link
+            to="/shop"
+            className="group inline-flex items-center space-x-2 px-8 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
+          >
             <span>Voir tous les produits</span>
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>
@@ -1208,11 +1212,13 @@ const AboutPreview = () => {
                 </div>
               ))}
             </div>
-
-            <button className="group inline-flex items-center space-x-2 px-8 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+            <Link
+              to="/about"
+              className="group inline-flex items-center space-x-2 px-8 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
+            >
               <span>En savoir plus sur nous</span>
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </button>
+            </Link>
           </div>
 
           <div className="relative">

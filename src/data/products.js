@@ -126,7 +126,7 @@ export const PRODUCTS = [
     category: CATEGORIES.PAGNES,
     subcategory: SUBCATEGORIES.PAGNES_MODERNES,
     price: 38.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Pagne ankara moderne avec des motifs floraux contemporains. Parfait pour créer des tenues modernes et élégantes.',
     longDescription: 'Cette création moderne mélange harmonieusement tradition et contemporanéité. Les motifs floraux stylisés apportent une touche de fraîcheur et de féminité. Idéal pour confectionner robes, jupes ou accessoires tendance.',
     images: [
@@ -156,7 +156,7 @@ export const PRODUCTS = [
     category: CATEGORIES.BIJOUX,
     subcategory: SUBCATEGORIES.COLLIERS,
     price: 89.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Sublime collier en perles dorées artisanales inspiré des bijoux traditionnels africains. Pièce unique et élégante.',
     longDescription: 'Ce collier exceptionnel est composé de perles dorées soigneusement sélectionnées et assemblées à la main par nos artisans. Chaque perle raconte une histoire et apporte une touche de luxe à votre tenue. Le fermoir en métal doré assure une fermeture sécurisée.',
     images: [
@@ -185,7 +185,7 @@ export const PRODUCTS = [
     category: CATEGORIES.BIJOUX,
     subcategory: SUBCATEGORIES.BOUCLES_OREILLES,
     price: 34.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Élégantes boucles d\'oreilles créoles avec motifs ethniques gravés. Finition dorée et design intemporel.',
     longDescription: 'Ces boucles d\'oreilles créoles allient tradition et modernité. Les motifs ethniques finement gravés rendent hommage à l\'art africain traditionnel tout en s\'adaptant parfaitement aux tendances actuelles.',
     images: [
@@ -214,7 +214,7 @@ export const PRODUCTS = [
     category: CATEGORIES.SACS,
     subcategory: SUBCATEGORIES.SACS_MAIN,
     price: 156.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Sac à main en cuir véritable tressé à la main par nos artisans. Design unique et finitions impeccables.',
     longDescription: 'Ce sac à main exceptionnel est entièrement confectionné à la main par nos maîtres artisans. Le cuir de première qualité est tressé selon une technique ancestrale, créant un motif unique et sophistiqué. L\'intérieur doublé dispose de plusieurs compartiments pratiques.',
     images: [
@@ -246,7 +246,7 @@ export const PRODUCTS = [
     category: CATEGORIES.CHAUSSURES,
     subcategory: SUBCATEGORIES.ESCARPINS,
     price: 98.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Escarpins élégants à bout pointu avec talon de 8cm. Parfaits pour les occasions spéciales et le bureau.',
     longDescription: 'Ces escarpins sophistiqués combinent confort et élégance. Le cuir souple et la semelle intérieure rembourrée assurent un confort optimal même pour de longues journées. Le talon de 8cm affine la silhouette tout en restant stable.',
     images: [
@@ -277,7 +277,7 @@ export const PRODUCTS = [
     category: CATEGORIES.VOILES_SUISSES,
     subcategory: SUBCATEGORIES.VOILES_FEMME,
     price: 234.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Voile suisse de qualité premium avec broderies fines réalisées à la main. Élégance et sophistication assurées.',
     longDescription: 'Ce voile suisse exceptionnel est le fruit d\'un savoir-faire ancestral. Les broderies délicates sont réalisées entièrement à la main par nos brodeuses expertes. Le tissu léger et fluide offre un tombé parfait et un confort incomparable.',
     images: [
@@ -307,7 +307,7 @@ export const PRODUCTS = [
     category: CATEGORIES.GUIPURES,
     subcategory: SUBCATEGORIES.GUIPURES_DENTELLE,
     price: 78.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Guipure en dentelle avec motifs floraux pour créations haute couture. Qualité exceptionnelle et finesse remarquable.',
     longDescription: 'Cette guipure d\'exception présente des motifs floraux d\'une finesse remarquable. Parfaite pour les créations de haute couture, elle apporte une touche de luxe et de raffinement à vos confections.',
     images: [
@@ -335,7 +335,7 @@ export const PRODUCTS = [
     category: CATEGORIES.SEQUINS,
     subcategory: SUBCATEGORIES.SEQUINS_BRILLANTS,
     price: 123.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Tissu à sequins brillants parfait pour robes de soirée et tenues de fête. Éclat garanti sous les lumières.',
     longDescription: 'Ce tissu à sequins d\'une qualité exceptionnelle transformera vos créations en pièces éblouissantes. Les sequins de haute qualité sont solidement fixés et résistent aux mouvements répétés. Idéal pour robes de soirée, tops de fête ou accessoires glamour.',
     images: [
@@ -365,7 +365,7 @@ export const PRODUCTS = [
     category: CATEGORIES.TISSUS_SOIREE,
     subcategory: SUBCATEGORIES.TISSUS_LUXE,
     price: 87.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Tissu satin de qualité premium pour confectionner des robes de soirée élégantes et sophistiquées.',
     longDescription: 'Ce tissu satin d\'exception offre un tombé parfait et un éclat subtil qui sublime toutes vos créations. Sa texture soyeuse et sa brillance naturelle en font le choix idéal pour les robes de soirée, les tops chics ou les jupes plissées.',
     images: [
@@ -396,7 +396,7 @@ export const PRODUCTS = [
     category: CATEGORIES.PAGNES,
     subcategory: SUBCATEGORIES.PAGNES_PREMIUM,
     price: 189.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Authentique pagne Kente tissé main aux motifs royaux traditionnels. Pièce d\'exception pour occasions spéciales.',
     longDescription: 'Ce pagne Kente authentique est tissé selon les traditions ancestrales ghanéennes. Chaque motif a une signification particulière liée à la royauté et à la sagesse. Cette pièce d\'exception est parfaite pour les cérémonies importantes et les événements culturels.',
     images: [
@@ -427,7 +427,7 @@ export const PRODUCTS = [
     category: CATEGORIES.BIJOUX,
     subcategory: SUBCATEGORIES.BRACELETS,
     price: 67.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Bracelet manchette en cuivre avec gravures traditionnelles africaines. Artisanat authentique et design unique.',
     longDescription: 'Ce bracelet manchette impressionnant est forgé et gravé à la main par nos artisans spécialisés. Les motifs traditionnels racontent des histoires ancestrales et apportent une dimension culturelle forte à votre style.',
     images: [
@@ -457,7 +457,7 @@ export const PRODUCTS = [
     category: CATEGORIES.SACS,
     subcategory: SUBCATEGORIES.SACS_SOIREE,
     price: 74.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Pochette de soirée scintillante avec paillettes dorées et chaîne amovible. Parfaite pour vos sorties glamour.',
     longDescription: 'Cette pochette élégante apportera une touche de glamour à toutes vos tenues de soirée. Les paillettes dorées captent magnifiquement la lumière, tandis que la chaîne fine et amovible vous offre plusieurs options de port.',
     images: [
@@ -486,7 +486,7 @@ export const PRODUCTS = [
     category: CATEGORIES.CHAUSSURES,
     subcategory: SUBCATEGORIES.SANDALES,
     price: 89.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Sandales compensées avec détails tressés et semelle en corde. Confort et style pour l\'été.',
     longDescription: 'Ces sandales compensées allient parfaitement confort et élégance. La semelle compensée en corde apporte une touche naturelle, tandis que les détails tressés sur les lanières ajoutent une dimension artisanale chic.',
     images: [
@@ -516,7 +516,7 @@ export const PRODUCTS = [
     category: CATEGORIES.VOILES_SUISSES,
     subcategory: SUBCATEGORIES.VOILES_HOMME,
     price: 198.00,
-    currency: 'EUR',
+    currency: 'XOF',
     description: 'Voile suisse pour homme avec broderies géométriques élégantes. Parfait pour boubous et tenues traditionnelles.',
     longDescription: 'Ce voile suisse masculin se distingue par ses broderies géométriques raffinées qui respectent les codes esthétiques traditionnels tout en apportant une touche de modernité. Idéal pour confectionner des boubous élégants.',
     images: [

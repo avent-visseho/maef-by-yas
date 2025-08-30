@@ -19,7 +19,7 @@
  * @param {string} locale - Locale pour le formatage (fr-FR par défaut)
  * @returns {string} Prix formaté
  */
-export const formatPrice = (price, currency = "EUR", locale = "fr-FR") => {
+export const formatPrice = (price, currency = "XOF", locale = "fr-FR") => {
   try {
     return new Intl.NumberFormat(locale, {
       style: "currency",
